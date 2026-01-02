@@ -14,6 +14,9 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
   bool loading = false;
   String? error;
 
+  bool _isHovering = false;
+
+
   void login() async {
     setState(() {
       loading = true;
@@ -31,6 +34,7 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Center(
         child: SizedBox(
           width: 380,
@@ -76,11 +80,58 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: loading ? null : login,
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.black
+                      ),
                       child: loading
                           ? const CircularProgressIndicator(color: Colors.white)
-                          : const Text('Autentificare'),
+                          : const Text('Authenticate'),
                     ),
                   ),
+
+                  const SizedBox(height: 24),
+                  const Divider(
+                    thickness: 1,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 24),
+
+                  RichText(
+                    text: TextSpan(
+                      text: "Don't have an account? ",
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                      ),
+                      children: [
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.baseline,
+                          baseline: TextBaseline.alphabetic,
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            onEnter: (_) => setState(() => _isHovering = true),
+                            onExit: (_) => setState(() => _isHovering = false),
+                            child: GestureDetector(
+                              onTap: () {
+                                // action: deschide email / pagina de contact / dialog
+                              },
+                              child: Text(
+                                "Contact the administrator.",
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 14,
+                                  decoration: _isHovering
+                                      ? TextDecoration.underline
+                                      : TextDecoration.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
