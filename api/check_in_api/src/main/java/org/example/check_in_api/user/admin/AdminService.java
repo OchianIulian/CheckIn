@@ -1,7 +1,9 @@
-package org.example.check_in_api.user;
+package org.example.check_in_api.user.admin;
 
 import org.example.check_in_api.auth.JwtService;
 import org.example.check_in_api.auth.LoginRequest;
+import org.example.check_in_api.user.AuthResponse;
+import org.example.check_in_api.user.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,48 +13,38 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-public class UserService {
+public class AdminService {
 
-    private final UserRepository userRepository;
+    private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
 
-    public UserService(
-            UserRepository userRepository,
+    public AdminService(
+            AdminRepository adminRepository,
             PasswordEncoder passwordEncoder,
             AuthenticationManager authenticationManager,
             JwtService jwtService) {
-        this.userRepository = userRepository;
+        this.adminRepository = adminRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
     }
 
-    public void registerAndLogin(ClientRequest clientRequest) {
-        var user = UserEntity.builder()
-                .username(null)
-                .password(null)
-                .email(null)
-                .role(String.valueOf(Role.ADMIN))
-                .phone(clientRequest.phoneNumber())
-                .build();
-        userRepository.save(user);
-    }
 
     public AuthResponse registerAndLogin(AdminRequest adminRequest) throws ResponseStatusException {
-        if (userRepository.existsByUsername(adminRequest.username())) {
+        if (adminRepository.existsByUsername(adminRequest.username())) {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT, "Username already exists");
         }
 
-        if (userRepository.existsByEmail(adminRequest.email())) {
+        if (adminRepository.existsByEmail(adminRequest.email())) {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT, "Email already exists");
         }
 
-        var user = UserEntity.builder()
+        var user = AdminEntity.builder()
                 .username(adminRequest.username())
                 .password(passwordEncoder.encode(adminRequest.password()))
                 .email(adminRequest.email())
@@ -60,8 +52,8 @@ public class UserService {
                 .phone(adminRequest.phoneNumber())
                 .build();
 
-        userRepository.save(user);
-        var token = jwtService.generateToken(user.getUsername());
+        adminRepository.save(user);
+        var token = jwtService.generateAdminToken(user.getUsername());
         return new AuthResponse(token);
     }
 
@@ -73,7 +65,7 @@ public class UserService {
                 )
         );
 
-        String token = jwtService.generateToken(authentication.getName());
+        var token = jwtService.generateAdminToken(authentication.getName());
         return new AuthResponse(token);
     }
 

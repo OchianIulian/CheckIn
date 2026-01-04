@@ -1,6 +1,6 @@
 package org.example.check_in_api.auth;
 
-import org.example.check_in_api.user.UserRepository;
+import org.example.check_in_api.user.admin.AdminRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final AdminRepository adminRepository;
 
-    public CustomUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public CustomUserDetailsService(AdminRepository adminRepository) {
+        this.adminRepository = adminRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        var user = userRepository.findByUsername(username)
+        var user = adminRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
 
         return User.builder()

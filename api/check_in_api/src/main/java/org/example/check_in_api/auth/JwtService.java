@@ -28,9 +28,20 @@ public class JwtService {
         return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(String username) {
+    public String generateAdminToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
+                .claim("type", "ADMIN")
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public String generateClientToken(String phone) {
+        return Jwts.builder()
+                .setSubject(phone)
+                .claim("type", "CLIENT")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -56,5 +67,9 @@ public class JwtService {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    public Object extractType(String token) {
+        return parseClaims(token).get("type", String.class);
     }
 }
