@@ -1,4 +1,4 @@
-package org.example.check_in_api;
+package org.example.check_in_api.auth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

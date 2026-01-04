@@ -1,4 +1,4 @@
-package org.example.check_in_api;
+package org.example.check_in_api.auth;
 
 import java.util.Map;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
-public class AuthController {
+@RequestMapping("/auth/client")
+public class ClientAuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtService jwtService) {
+    public ClientAuthController(AuthenticationManager authenticationManager, JwtService jwtService) {
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
     }

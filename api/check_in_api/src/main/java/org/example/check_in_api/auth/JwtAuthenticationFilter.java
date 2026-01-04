@@ -1,4 +1,4 @@
-package org.example.check_in_api;
+package org.example.check_in_api.auth;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
