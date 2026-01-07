@@ -1,7 +1,9 @@
+import 'package:check_in_frontend/mobile/MainShellPage.dart';
 import 'package:check_in_frontend/utils/CustomColors.dart';
 import 'package:flutter/material.dart';
 
 import '../custom_widgets/WaveClipper.dart';
+import 'ClientHomePage.dart';
 
 class ClientLoginPage extends StatefulWidget {
   const ClientLoginPage({super.key});
@@ -40,92 +42,110 @@ class _ClientLoginPageState extends State<ClientLoginPage> {
 
     setState(() => loading = false);
 
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => const MainShellPage()),
+    );
     // TODO: navigate to MobileHomePage
   }
 
   @override
   Widget build(BuildContext context) {
+    final keyboard = MediaQuery.of(context).viewInsets.bottom;
+
     return Scaffold(
-      body:Stack(
+      resizeToAvoidBottomInset: false, // tine background-ul fix
+      body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Autentificare',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 32),
-
-                TextField(
-                  controller: phoneController,
-                  keyboardType: TextInputType.phone,
-                  decoration: const InputDecoration(
-                    labelText: 'Numar de telefon',
-                    prefixText: '+40 ',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-
-                if (otpSent) ...[
-                  const SizedBox(height: 16),
-                  TextField(
-                    controller: otpController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'Cod OTP',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ],
-
-                const SizedBox(height: 24),
-
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: loading
-                        ? null
-                        : otpSent
-                        ? verifyOtp
-                        : requestOtp,
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: CustomColors.greenDark,
-                      // foregroundColor: Color(0xFF1E4238),
-                      // backgroundColor: Colors.white,
-                    ),
-                    child: loading
-                        ? const CircularProgressIndicator(color: Colors.white)
-                        : Text(otpSent ? 'Verifica cod' : 'Trimite cod'),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Background wave - NU se misca
           Positioned(
             left: 0,
             right: 0,
             bottom: 0,
-            child: SizedBox(
-              height: 200,
-              child: Transform.rotate(
-                angle: 3.14159, // wave cu varful in sus
-                child: ClipPath(
-                  clipper: WaveClipper(),
-                  child: Container(
-                    color: CustomColors.greenDark,
+            child: IgnorePointer(
+              child: SizedBox(
+                height: 200,
+                child: Transform.rotate(
+                  angle: 3.14159,
+                  child: ClipPath(
+                    clipper: WaveClipper(),
+                    child: Container(color: CustomColors.greenDark),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          // Continut - se ridica doar cat e tastatura si poate face scroll
+          SafeArea(
+            child: AnimatedPadding(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOut,
+              padding: EdgeInsets.only(bottom: keyboard),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height
+                        - MediaQuery.of(context).padding.top
+                        - MediaQuery.of(context).padding.bottom
+                        - 48, // aprox SafeArea + padding, ok sa fie simplu
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          'Autentificare',
+                          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 32),
+
+                        TextField(
+                          controller: phoneController,
+                          keyboardType: TextInputType.phone,
+                          decoration: const InputDecoration(
+                            labelText: 'Numar de telefon',
+                            prefixText: '+40 ',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+
+                        if (otpSent) ...[
+                          const SizedBox(height: 16),
+                          TextField(
+                            controller: otpController,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              labelText: 'Cod OTP',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ],
+
+                        const SizedBox(height: 24),
+
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: loading ? null : (otpSent ? verifyOtp : requestOtp),
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: CustomColors.greenDark,
+                            ),
+                            child: loading
+                                ? const CircularProgressIndicator(color: Colors.white)
+                                : Text(otpSent ? 'Verifica cod' : 'Trimite cod'),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
         ],
-      )
-
-
+      ),
     );
   }
 }
