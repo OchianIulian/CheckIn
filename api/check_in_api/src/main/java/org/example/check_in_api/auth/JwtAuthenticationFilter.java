@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import org.example.check_in_api.user.Role;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import static org.example.check_in_api.user.Role.CLIENT;
+import static org.example.check_in_api.user.AccountType.CLIENT;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -50,7 +51,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if(CLIENT.name().equals(type)) {
             authentication = new UsernamePasswordAuthenticationToken(subject, null,
-                    List.of(new SimpleGrantedAuthority("ROLE_CLIENT"))
+                    List.of(new SimpleGrantedAuthority(Role.CLIENT_ROLE.name()))
             );
         } else {
             var userDetails = userDetailsService.loadUserByUsername(subject);

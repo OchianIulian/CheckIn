@@ -23,7 +23,6 @@ public class AdminEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String role;
     @Column(unique = true)
     private String username;
     private String password;

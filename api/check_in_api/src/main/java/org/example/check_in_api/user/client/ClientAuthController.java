@@ -2,6 +2,8 @@ package org.example.check_in_api.user.client;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.check_in_api.auth.JwtService;
+import org.example.check_in_api.user.AccountEntity;
+import org.example.check_in_api.user.AccountRepository;
 import org.example.check_in_api.user.AuthResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,29 +13,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import static org.example.check_in_api.user.AccountType.CLIENT;
+
 @Slf4j
 @RestController
 @RequestMapping("/auth/client")
 public class ClientAuthController {
     private final ClientRepository clientRepository;
+    private final AccountRepository accountRepository;
     private final OtpService otpService;
     private final JwtService jwtService;
 
     public ClientAuthController(
             ClientRepository clientRepository,
             OtpService otpService,
-            JwtService jwtService
-    ) {
+            JwtService jwtService,
+            AccountRepository accountRepository) {
         this.clientRepository = clientRepository;
+        this.accountRepository = accountRepository;
         this.otpService = otpService;
         this.jwtService = jwtService;
     }
 
     @PostMapping
     public ResponseEntity<Void> requestOtp(@RequestBody PhoneRequest request) {
+        var client = ClientEntity.builder().phone(request.phone()).build();
         if(clientRepository.findByPhone(request.phone()).isEmpty()) {
-            clientRepository.save(
-                    new ClientEntity(null, request.phone()));
+            clientRepository.save(client);
+        }
+        if(accountRepository.findByIdentifier(request.phone()).isEmpty()){
+            accountRepository.save(
+                    AccountEntity.builder().identifier(request.phone()).accountType(CLIENT).client(client).build());
         }
 
         var otp = otpService.generateOtp(request.phone());

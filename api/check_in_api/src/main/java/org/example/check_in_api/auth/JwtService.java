@@ -8,6 +8,7 @@ import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import org.example.check_in_api.user.AccountType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class JwtService {
     public String generateAdminToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
-                .claim("type", "ADMIN")
+                .claim("type", AccountType.ADMIN.name())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -41,7 +42,7 @@ public class JwtService {
     public String generateClientToken(String phone) {
         return Jwts.builder()
                 .setSubject(phone)
-                .claim("type", "CLIENT")
+                .claim("type", AccountType.CLIENT.name())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
