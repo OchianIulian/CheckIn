@@ -1,10 +1,10 @@
 package org.example.check_in_api.user.admin;
 
+import org.example.check_in_api.auth.AuthDtos.AuthResponse;
 import org.example.check_in_api.auth.JwtService;
 import org.example.check_in_api.auth.LoginRequest;
 import org.example.check_in_api.user.AccountEntity;
 import org.example.check_in_api.user.AccountRepository;
-import org.example.check_in_api.user.AuthResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
