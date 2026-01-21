@@ -15,6 +15,12 @@ class MainShellPage extends StatefulWidget {
 
 class _MainShellPageState extends State<MainShellPage> {
   int _index = 0;
+  static const navBarHeight = 50.0;     // NavigationBar default
+  static const navBottomMargin = 10.0;  // container margin bottom
+  static const navOuterPadding = 10.0;  // container margin left/right, irrelevant for height
+  static const extraBuffer = 12.0;      // small safety buffer
+
+
 
   final _pages = const [
     ClientHomePage(),
@@ -24,15 +30,23 @@ class _MainShellPageState extends State<MainShellPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bottomInset = MediaQuery.of(context).padding.bottom;
+    final bodyBottomPadding =
+        navBarHeight + navBottomMargin + bottomInset + extraBuffer;
+
     return Scaffold(
-      body: IndexedStack(
-        index: _index,
-        children: _pages,
+      extendBody: true,
+      body: Padding(
+        padding: EdgeInsets.only(bottom: bodyBottomPadding),
+        child: IndexedStack(
+          index: _index,
+          children: _pages,
+        ),
       ),
       bottomNavigationBar: SafeArea(
         top: false,
         child: Container(
-          margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
           decoration: BoxDecoration(
             color: CustomColors.greenDark,
             borderRadius: BorderRadius.circular(22),
@@ -70,9 +84,9 @@ class _MainShellPageState extends State<MainShellPage> {
               onDestinationSelected: (i) => setState(() => _index = i),
               destinations: const [
                 NavigationDestination(
-                  icon: Icon(Icons.home_outlined),
-                  selectedIcon: Icon(Icons.home),
-                  label: 'Home',
+                  icon: Icon(Icons.airplane_ticket_outlined),
+                  selectedIcon: Icon(Icons.airplane_ticket),
+                  label: 'My Tickets',
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.storefront_outlined),
