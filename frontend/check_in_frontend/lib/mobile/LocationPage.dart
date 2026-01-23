@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../custom_widgets/OfferCard.dart';
-import '../utilitars/LocationData.dart';
-import '../utilitars/OfferData.dart';
+import '../custom_widgets_mobile//OfferCard.dart';
+import '../utilitars_mobile//LocationData.dart';
+import '../utilitars_mobile//OfferData.dart';
 
 
 

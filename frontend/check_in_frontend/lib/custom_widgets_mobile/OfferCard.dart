@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../utilitars/OfferData.dart';
+import '../utilitars_mobile//OfferData.dart';
 
 class OfferCard extends StatelessWidget {
   final OfferData offer;

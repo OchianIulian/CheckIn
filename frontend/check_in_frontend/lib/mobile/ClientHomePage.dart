@@ -1,10 +1,10 @@
-import 'package:check_in_frontend/custom_widgets/tickets/SimpleTicketCard.dart';
-import 'package:check_in_frontend/custom_widgets/tickets/TicketData.dart';
-import 'package:check_in_frontend/utils/CustomColors.dart';
+import 'package:check_in_frontend/custom_widgets_mobile//tickets/SimpleTicketCard.dart';
+import 'package:check_in_frontend/custom_widgets_mobile//tickets/TicketData.dart';
+import 'package:check_in_frontend/utils_mobile/CustomColors.dart';
 import 'package:flutter/material.dart';
 
-import '../custom_widgets/TicketPopupDialog.dart';
-import '../custom_widgets/WaveClipper.dart';
+import '../custom_widgets_mobile//TicketPopupDialog.dart';
+import '../custom_widgets_mobile//WaveClipper.dart';
 
 class ClientHomePage extends StatelessWidget {
   const ClientHomePage({super.key});

@@ -1,4 +1,4 @@
-import 'package:check_in_frontend/custom_widgets/tickets/TicketData.dart';
+import 'package:check_in_frontend/custom_widgets_mobile//tickets/TicketData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

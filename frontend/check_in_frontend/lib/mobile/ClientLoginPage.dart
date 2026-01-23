@@ -1,8 +1,8 @@
 import 'package:check_in_frontend/mobile/MainShellPage.dart';
-import 'package:check_in_frontend/utils/CustomColors.dart';
+import 'package:check_in_frontend/utils_mobile/CustomColors.dart';
 import 'package:flutter/material.dart';
 
-import '../custom_widgets/WaveClipper.dart';
+import '../custom_widgets_mobile//WaveClipper.dart';
 import 'ClientHomePage.dart';
 
 class ClientLoginPage extends StatefulWidget {

@@ -1,10 +1,10 @@
 import 'package:check_in_frontend/mobile/LocationPage.dart';
-import 'package:check_in_frontend/utils/CustomColors.dart';
+import 'package:check_in_frontend/utils_mobile/CustomColors.dart';
 import 'package:flutter/material.dart';
 
-import '../custom_widgets/LocationCard.dart';
-import '../custom_widgets/SearchBar.dart';
-import '../utilitars/LocationData.dart';
+import '../custom_widgets_mobile//LocationCard.dart';
+import '../custom_widgets_mobile//SearchBar.dart';
+import '../utilitars_mobile//LocationData.dart';
 
 
 class MarketplacePage extends StatefulWidget {

@@ -2,7 +2,7 @@ import 'package:check_in_frontend/mobile/ClientHomePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/CustomColors.dart';
+import '../utils_mobile/CustomColors.dart';
 import 'MarketplacePage.dart';
 import 'ProfilePage.dart';
 

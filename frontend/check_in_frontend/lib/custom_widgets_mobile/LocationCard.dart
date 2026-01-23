@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../utilitars/LocationData.dart';
+import '../utilitars_mobile//LocationData.dart';
 
 class LocationCard extends StatelessWidget {
   final LocationData data;
