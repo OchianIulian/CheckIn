@@ -3,6 +3,7 @@ import 'package:check_in_frontend/custom_widgets/tickets/TicketData.dart';
 import 'package:check_in_frontend/utils/CustomColors.dart';
 import 'package:flutter/material.dart';
 
+import '../custom_widgets/TicketPopupDialog.dart';
 import '../custom_widgets/WaveClipper.dart';
 
 class ClientHomePage extends StatelessWidget {
@@ -21,6 +22,21 @@ class ClientHomePage extends StatelessWidget {
     TicketData(title: "Ticket #3", subtitle: "Short info"),
     TicketData(title: "Ticket #4", subtitle: "Short info"),
   ];
+
+  void _openTicketDialog(BuildContext context, TicketData t) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) => TicketPopupDialog(
+        businessName: t.title,
+        serviceName: t.subtitle,
+        remaining: 0,
+        total: 1,
+        expDateText: "EXP: 12 Feb 2026",
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -67,7 +83,11 @@ class ClientHomePage extends StatelessWidget {
               ...tickets.map(
                     (t) => Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: SimpleTicketCard(data: t),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(16),
+                    onTap: () => _openTicketDialog(context, t),
+                    child: (SimpleTicketCard(data: t))
+                  ),
                 ),
               ),
             ],
