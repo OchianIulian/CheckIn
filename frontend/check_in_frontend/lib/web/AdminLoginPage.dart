@@ -1,3 +1,4 @@
+import 'package:check_in_frontend/web/custom_widgets/AdminShell.dart';
 import 'package:flutter/material.dart';
 
 class AdminLoginPage extends StatefulWidget {
@@ -28,6 +29,9 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
 
     setState(() => loading = false);
 
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => const AdminShell()),
+    );
     // TODO: navigate to WebHomePage
   }
 

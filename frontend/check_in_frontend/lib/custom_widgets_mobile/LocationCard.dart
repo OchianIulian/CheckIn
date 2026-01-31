@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:check_in_frontend/utilitars_mobile/LocationData.dart';
+import 'package:check_in_frontend/utils_mobile/CustomColors.dart';
 import 'package:flutter/material.dart';
 
-import '../utilitars_mobile//LocationData.dart';
+
 
 class LocationCard extends StatelessWidget {
   final LocationData data;
@@ -21,7 +22,7 @@ class LocationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       elevation: 10,
-      shadowColor: Colors.black.withOpacity(0.25),
+      shadowColor: CustomColors.black25,
       borderRadius: BorderRadius.circular(20),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
@@ -35,7 +36,7 @@ class LocationCard extends StatelessWidget {
                 child: data.imageUrl != null
                     ? Image.network(data.imageUrl!, fit: BoxFit.cover)
                     : Container(
-                  color: Colors.black.withOpacity(0.08),
+                  color: CustomColors.black08,
                   child: const Center(child: Icon(Icons.image, size: 40)),
                 ),
               ),
@@ -47,9 +48,9 @@ class LocationCard extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Colors.black.withOpacity(0.10),
-                        Colors.black.withOpacity(0.10),
-                        Colors.black.withOpacity(0.65),
+                        CustomColors.black10,
+                        CustomColors.black10,
+                        CustomColors.black65
                       ],
                     ),
                   ),
@@ -60,7 +61,7 @@ class LocationCard extends StatelessWidget {
                 top: 10,
                 right: 10,
                 child: Material(
-                  color: Colors.white.withOpacity(0.85),
+                  color: CustomColors.white85,
                   shape: const CircleBorder(),
                   child: InkWell(
                     customBorder: const CircleBorder(),
@@ -106,7 +107,7 @@ class LocationCard extends StatelessWidget {
                           .textTheme
                           .bodyMedium
                           ?.copyWith(
-                        color: Colors.white.withOpacity(0.92),
+                        color: CustomColors.white92,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -120,7 +121,7 @@ class LocationCard extends StatelessWidget {
                           .textTheme
                           .bodySmall
                           ?.copyWith(
-                        color: Colors.white.withOpacity(0.88),
+                        color: CustomColors.white88,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

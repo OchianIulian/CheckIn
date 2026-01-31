@@ -1,7 +1,8 @@
+import 'package:check_in_frontend/custom_widgets_mobile/OfferCard.dart';
+import 'package:check_in_frontend/utilitars_mobile/LocationData.dart';
+import 'package:check_in_frontend/utilitars_mobile/OfferData.dart';
+import 'package:check_in_frontend/utils_mobile/CustomColors.dart';
 import 'package:flutter/material.dart';
-import '../custom_widgets_mobile//OfferCard.dart';
-import '../utilitars_mobile//LocationData.dart';
-import '../utilitars_mobile//OfferData.dart';
 
 
 
@@ -88,7 +89,7 @@ class LocationDetailsPage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: Colors.black.withOpacity(0.7),
+                  color: CustomColors.black70,
                 ),
               ),
               const SizedBox(height: 34),

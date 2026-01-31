@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:check_in_frontend/utils_mobile/CustomColors.dart';
 import 'package:flutter/material.dart';
 
 class TicketPopupDialog extends StatelessWidget {
@@ -47,7 +47,7 @@ class TicketPopupDialog extends StatelessWidget {
                 width: 190,
                 height: 190,
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.06),
+                  color: CustomColors.black06,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: const Center(
@@ -69,7 +69,7 @@ class TicketPopupDialog extends StatelessWidget {
               textAlign: TextAlign.center,
               style: textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
-                color: Colors.black.withOpacity(0.72),
+                color: CustomColors.black72,
               ),
             ),
 
@@ -88,7 +88,7 @@ class TicketPopupDialog extends StatelessWidget {
                 expDateText,
                 style: textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w700,
-                  color: Colors.black.withOpacity(0.6),
+                  color: CustomColors.black60,
                 ),
               ),
             ),

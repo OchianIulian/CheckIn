@@ -3,7 +3,6 @@ import 'package:check_in_frontend/utils_mobile/CustomColors.dart';
 import 'package:flutter/material.dart';
 
 import '../custom_widgets_mobile//WaveClipper.dart';
-import 'ClientHomePage.dart';
 
 class ClientLoginPage extends StatefulWidget {
   const ClientLoginPage({super.key});

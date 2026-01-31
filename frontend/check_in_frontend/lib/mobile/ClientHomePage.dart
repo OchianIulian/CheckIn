@@ -73,7 +73,7 @@ class ClientHomePage extends StatelessWidget {
               Text(
                 "Choose your fighter to create new memories!",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.white.withOpacity(0.9),
+                  color: CustomColors.white90,
                 ),
               ),
 

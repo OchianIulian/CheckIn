@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearchBar extends StatelessWidget {
   final TextEditingController controller;
 
-  const CustomSearchBar({required this.controller});
+  const CustomSearchBar({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

@@ -1,11 +1,10 @@
 import 'package:check_in_frontend/custom_widgets_mobile//tickets/TicketData.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SimpleTicketCard extends StatelessWidget {
   final TicketData data;
 
-  const SimpleTicketCard({required this.data});
+  const SimpleTicketCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {

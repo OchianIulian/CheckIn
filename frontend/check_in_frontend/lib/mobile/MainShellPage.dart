@@ -1,5 +1,4 @@
 import 'package:check_in_frontend/mobile/ClientHomePage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../utils_mobile/CustomColors.dart';
@@ -17,7 +16,6 @@ class _MainShellPageState extends State<MainShellPage> {
   int _index = 0;
   static const navBarHeight = 50.0;     // NavigationBar default
   static const navBottomMargin = 10.0;  // container margin bottom
-  static const navOuterPadding = 10.0;  // container margin left/right, irrelevant for height
   static const extraBuffer = 12.0;      // small safety buffer
 
 

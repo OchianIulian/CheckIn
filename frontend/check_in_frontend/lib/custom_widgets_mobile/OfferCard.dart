@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:check_in_frontend/utilitars_mobile/OfferData.dart';
+import 'package:check_in_frontend/utils_mobile/CustomColors.dart';
 import 'package:flutter/material.dart';
-
-import '../utilitars_mobile//OfferData.dart';
 
 class OfferCard extends StatelessWidget {
   final OfferData offer;
@@ -42,7 +41,7 @@ class OfferCard extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                               decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.06),
+                                color: CustomColors.black06,
                                 borderRadius: BorderRadius.circular(999),
                               ),
                               child: Text(
@@ -59,7 +58,7 @@ class OfferCard extends StatelessWidget {
                       Text(
                         offer.subtitle,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.black.withOpacity(0.7),
+                          color: CustomColors.black07,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
