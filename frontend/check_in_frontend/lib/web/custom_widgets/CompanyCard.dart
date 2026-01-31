@@ -24,7 +24,7 @@ class CompanyCard extends StatelessWidget {
             const SizedBox(width: 8),
             const Expanded(
               child: Text(
-                'Company details',
+                'Location details',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
               ),
             ),
@@ -38,7 +38,7 @@ class CompanyCard extends StatelessWidget {
         const SizedBox(height: 12),
         _kv('Name', name),
         const SizedBox(height: 8),
-        _kv('Location', location),
+        _kv('Address', location),
         const SizedBox(height: 8),
         const Text(
           'Description',

@@ -169,19 +169,6 @@ class _AdminStatisticsPageState extends State<AdminStatisticsPage> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F6F8),
-      appBar: AppBar(
-        title: const Text('Admin Statistics'),
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            onPressed: loading ? null : _loadStats,
-            tooltip: 'Refresh',
-            icon: const Icon(Icons.refresh),
-          ),
-          const SizedBox(width: 8),
-        ],
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
