@@ -1,8 +1,15 @@
 import 'package:check_in_frontend/mobile/MainShellPage.dart';
+import 'package:check_in_frontend/mobile/authorization/MemoryTokenStorage.dart';
 import 'package:check_in_frontend/utils_mobile/CustomColors.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../custom_widgets_mobile//WaveClipper.dart';
+import 'auth/AuthApi.dart';
+import 'auth/AuthRepository.dart';
+import 'authorization/Dio.dart';
+import 'authorization/SecureTokenStorage.dart';
 
 class ClientLoginPage extends StatefulWidget {
   const ClientLoginPage({super.key});
@@ -12,6 +19,25 @@ class ClientLoginPage extends StatefulWidget {
 }
 
 class _ClientLoginPageState extends State<ClientLoginPage> {
+  late final TokenStore tokenStore;
+  late final SecureTokenStorage secureStorage;
+  late final Dio dio;
+  late final AuthRepository authRepo;
+
+  @override
+  void initState() {
+    super.initState();
+    tokenStore = TokenStore();
+    secureStorage = SecureTokenStorage(const FlutterSecureStorage());
+
+    dio = createDioClient(
+      baseUrl: 'http://localhost:8080',
+      tokenStore: tokenStore,
+      secureStorage: secureStorage,
+    );
+
+    authRepo = AuthRepository(AuthApi(dio), secureStorage, tokenStore);
+  }
 
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
@@ -19,33 +45,57 @@ class _ClientLoginPageState extends State<ClientLoginPage> {
   bool otpSent = false;
   bool loading = false;
 
-  void requestOtp() {
-    setState(() {
-      loading = true;
-    });
+  Future<void> requestOtp() async {
+    final phone = phoneController.text.trim();
+    if (phone.isEmpty) return;
 
-    // Simulate network request
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        otpSent = true;
-        loading = false;
-      });
-    });
-  }
-
-  void verifyOtp() async {
+    debugPrint('requestOtp start mounted=$mounted');
     setState(() => loading = true);
 
-    // TODO: call backend -> POST /auth/otp/verify
-    await Future.delayed(const Duration(seconds: 1));
+    try {
+      await authRepo.requestOtp(phone: phone);
+      debugPrint('requestOtp after await mounted=$mounted');
 
-    setState(() => loading = false);
-
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const MainShellPage()),
-    );
-    // TODO: navigate to MobileHomePage
+      if (!mounted) return;
+      setState(() => otpSent = true);
+    } catch (e, st) {
+      debugPrint('requestOtp error: $e');
+      debugPrintStack(stackTrace: st);
+    } finally {
+      debugPrint('requestOtp finally mounted=$mounted');
+      if (!mounted) return;
+      setState(() => loading = false);
+    }
   }
+
+
+  Future<void> verifyOtp() async {
+    final phone = phoneController.text.trim();
+    final otp = otpController.text.trim();
+    if (phone.isEmpty || otp.isEmpty) return;
+
+    setState(() => loading = true);
+
+    var success = false;
+    try {
+      await authRepo.verifyOtp(phone: phone, otp: otp);
+      success = true;
+    } catch (e, st) {
+      debugPrint('requestOtp error: $e');
+      debugPrintStack(stackTrace: st);
+    } finally {
+      if (!mounted) return;
+      setState(() => loading = false);
+    }
+
+    if (!mounted) return;
+    if (success) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const MainShellPage()),
+      );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +176,7 @@ class _ClientLoginPageState extends State<ClientLoginPage> {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: loading ? null : (otpSent ? verifyOtp : requestOtp),
+                            onPressed: loading ? null : (otpSent ? verifyOtp :  requestOtp),
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white,
                               backgroundColor: CustomColors.greenDark,

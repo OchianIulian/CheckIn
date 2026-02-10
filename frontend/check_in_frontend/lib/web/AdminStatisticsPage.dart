@@ -160,9 +160,6 @@ class _AdminStatisticsPageState extends State<AdminStatisticsPage> {
     }
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     final s = stats;
