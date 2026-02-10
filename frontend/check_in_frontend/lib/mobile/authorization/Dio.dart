@@ -1,8 +1,5 @@
 import 'package:check_in_frontend/mobile/auth/AuthApi.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-import '../auth/AuthRepository.dart';
 import 'AuthInterceptor.dart';
 import 'MemoryTokenStorage.dart';
 import 'SecureTokenStorage.dart';
@@ -33,19 +30,4 @@ Dio createDioClient({
 //todo: sa inteleg cum se face reincarcarea requestului de la linia 23
   return dio;
 
-}
-
-void exampleWiring() {
-  final tokenStore = TokenStore();
-  final secure = SecureTokenStorage(const FlutterSecureStorage());
-
-  final dio = createDioClient(
-    baseUrl: 'https://api.example.com',
-    tokenStore: tokenStore,
-    secureStorage: secure,
-  );
-
-  final authRepo = AuthRepository(AuthApi(dio), secure, tokenStore);
-
-  // authRepo.login(email, password);
 }
