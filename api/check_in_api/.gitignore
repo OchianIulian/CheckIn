@@ -35,3 +35,7 @@ build/
 # local properties
 application-local.properties
 
+
+docker_start.sh
+
+
