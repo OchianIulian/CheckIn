@@ -145,5 +145,6 @@ public class ClientAuthService {
                 refreshTokenRepository.save(rt);
             }
         });
+        //ToDO: Sa vad daca nu trebuie sa expir si jwt-ul. Daca un hacker va pastra jwt ul, pana expira va putea face requesturi linistit.
     }
 }
